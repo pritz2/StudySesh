@@ -29,7 +29,7 @@
     </div>
   </div>
   <div class="row">
-  	<div class = col-sm-4">
+  	<div class ="col-sm-4">
   		<a href='testAccessDatabase.php'>Test some shit.</a>
   	</div>
   </div>
