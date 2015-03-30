@@ -1,3 +1,9 @@
+<?php 
+if(!isset($_SESSION["id"])) {
+header("Location:user_login_session.php");
+}
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,11 +33,6 @@
       <h3>Check In</h3>        
       <p>When you start working, mark your location so others can find you!</p>
     </div>
-  </div>
-  <div class="row">
-  	<div class ="col-sm-4">
-  		<a href='testAccessDatabase.php'>Test some shit.</a>
-  	</div>
   </div>
 </div>
 
