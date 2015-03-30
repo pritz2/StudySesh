@@ -4,7 +4,7 @@ $message="";
 if(count($_POST)>0) {
 $conn = mysql_connect("localhost:8889","root","root");
 mysql_select_db("studyses_db",$conn);
-$result = mysql_query("SELECT * FROM Student WHERE studentID='" . $_POST["user_name"] . "' and password = '". $_POST["password"]."'");
+$result = mysql_query("SELECT * FROM Student WHERE studentID='" . $_POST["studentID"] . "' and password = '". $_POST["password"]."'");
 $row  = mysql_fetch_array($result);
 if(is_array($row)) {
 $_SESSION["id"] = $row[studentID];
@@ -16,7 +16,7 @@ $message = "Invalid Username or Password!";
 }
 }
 if(isset($_SESSION["id"])) {
-header("Location:user_dashboard.php");
+header("Location:dashboard.php");
 }
 ?>
 <html>
@@ -33,7 +33,7 @@ header("Location:user_dashboard.php");
 </tr>
 <tr class="tablerow">
 <td align="right">Username</td>
-<td><input type="text" name="user_name"></td>
+<td><input type="text" name="studentID"></td>
 </tr>
 <tr class="tablerow">
 <td align="right">Password</td>

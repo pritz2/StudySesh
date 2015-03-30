@@ -40,14 +40,19 @@ if(isset($_SESSION["id"])) {
     <p>The hippest work collaboration tool around</p> 
   </div>
       
-  <form action="user_login_session.php" method="post" class="form-btn" role="form">
-    <input name="studentID" type="studentID" class="form-control" placeholder="Student ID" required autofocus>
+  <form action="register.php" method="post" class="form-btn" role="form">
+    <input name="studentID" type="text" class="form-control" placeholder="Student ID" required autofocus>
     <input name="password" type="password" class="form-control" placeholder="Password" required>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" name="loginsubmit">Login</button>
-  </form>
-
-  <form action="sign_up.php" method="post" class="form-btn" role="form">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+    <input name="name" type="text" class="form-control" placeholder="Name" required>
+    <input name="major" type="text" class="form-control" placeholder="Major" required>
+    <select name="year" class="form-control">
+  		<option value="freshman">Freshman</option>
+  		<option value="sophomore">Sophomore</option>
+  		<option value="junior">Junior</option>
+  		<option value="senior">Senior</option>
+  		<option value="grad">Graduate Student</option>
+	</select>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Register!</button>
   </form>
 
 </div>
