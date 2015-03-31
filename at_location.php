@@ -1,12 +1,12 @@
-<?php
+<?php 
 session_start();
-if(!isset($_SESSION["id"])) {
-	header("Location:index.php");
+if(!isset($_SESSION["id"]) or !isset($_SESSION["locationID"])) {
+header("Location:index.php");
 }
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>StudySesh</title>
@@ -39,38 +39,14 @@ if(!isset($_SESSION["id"])) {
 
 <div class="container">
   <div class="jumbotron">
-    <h1>Profile</h1>
+    <h1>StudySesh</h1>
+    <p>The hippest work collaboration tool around</p> 
   </div>
   <div class="row">
-  	<h3>Your info:</h3>
-  	<p>Name: <?php echo $_SESSION["name"];?></p>
-  	<p>Student ID: <?php echo $_SESSION["id"];?></p>
-  	<p>Major: <?php echo $_SESSION["major"];?></p>
-  	<p>Year: <?php echo $_SESSION["year"];?></p>
-    <?php 
-    	include './include/database_info.php';
-    	$conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
-    	$db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
-    	$sql = "SELECT Class.classID, Class.className, Class.teacher FROM Taking INNER JOIN Class ON Taking.classID = Class.classID WHERE Taking.studentID = '".$_SESSION["id"]."';";
-    	$result = mysql_query($sql);
-    	
-    	if(mysql_num_rows($result)==0){
-    		echo "You're not taking any classes!";
-    	}
-    	else{
-    		echo "<p>Your classes:</p>";
-    		while ($row = mysql_fetch_assoc($result)) {
-    			echo "<p>".$row['classID'].": ".$row['className']." (".$row['teacher'].")</p>";
-    		}
-    	}
-    ?>
+    <h3>Welcome to <?php echo $_SESSION['locationID'];?>!</h3>
   </div>
   <div class="row">
-  	<h3 style="text-align:center">Add a class!</h3>
-  	<form action="add_class.php" method="post" class="form-btn" role="form">
-    	<input name="classID" type="text" class="form-control" placeholder="Class ID" required>
-    	<button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
-  	</form>
+    <h3><a href="leave_location.php">I'm done with this location.</a></h3>
   </div>
 </div>
 
@@ -80,5 +56,3 @@ if(!isset($_SESSION["id"])) {
 
 </body>
 </html>
-
-?>
