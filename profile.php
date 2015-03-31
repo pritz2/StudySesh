@@ -1,7 +1,7 @@
-<?php 
+<?php
 session_start();
 if(!isset($_SESSION["id"])) {
-header("Location:index.php");
+	header("Location:index.php");
 }
 ?>
 
@@ -12,6 +12,7 @@ header("Location:index.php");
 	<title>StudySesh</title>
 	<!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/default.css" rel="stylesheet">
 </head>
 <body>
 
@@ -37,23 +38,38 @@ header("Location:index.php");
 
 <div class="container">
   <div class="jumbotron">
-    <h1>StudySesh</h1>
-    <p>The hippest work collaboration tool around</p> 
+    <h1>Profile</h1>
   </div>
   <div class="row">
-    <div class="col-sm-4">
-      <h3><a href='checkIn.php'>Check In</a></h3>        
-      <p>When you start working, mark your location so others can find you!</p>
-    </div>
-    <div class="col-sm-4">
-      <h3><a href='viewLocations.php'>View Locations</a></h3>
-      <p>Find locations near you known the be common study or work areas!</p>
-    </div>
-    <div class="col-sm-4">
-      <h3><a href='recommend.php'>Recommend for me</a></h3>
-      <p>Recommends the best locations for you!</p>
-    </div>
-    
+  	<h3>Your info:</h3>
+  	<p>Name: <?php echo $_SESSION["name"];?></p>
+  	<p>Student ID: <?php echo $_SESSION["id"];?></p>
+  	<p>Major: <?php echo $_SESSION["major"];?></p>
+  	<p>Year: <?php echo $_SESSION["year"];?></p>
+    <?php 
+    	include './include/database_info.php';
+    	$conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
+    	$db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
+    	$sql = "SELECT Class.classID, Class.className, Class.teacher FROM Taking INNER JOIN Class ON Taking.classID = Class.classID WHERE Taking.studentID = '".$_SESSION["id"]."';";
+    	$result = mysql_query($sql);
+    	
+    	if(mysql_num_rows($result)==0){
+    		echo "You're not taking any classes!";
+    	}
+    	else{
+    		echo "<p>Your classes:</p>";
+    		while ($row = mysql_fetch_assoc($result)) {
+    			echo "<p>".$row['classID'].": ".$row['className']." (".$row['teacher'].")</p>";
+    		}
+    	}
+    ?>
+  </div>
+  <div class="row">
+  	<h3 style="text-align:center">Add a class!</h3>
+  	<form action="add_class.php" method="post" class="form-btn" role="form">
+    	<input name="classID" type="text" class="form-control" placeholder="Class ID" required>
+    	<button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
+  	</form>
   </div>
 </div>
 
@@ -63,3 +79,5 @@ header("Location:index.php");
 
 </body>
 </html>
+
+?>

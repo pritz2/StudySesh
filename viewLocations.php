@@ -24,7 +24,6 @@
         $result = mysql_query("SELECT buildingName,xcoor,ycoor FROM  Location");
         		
         while ($row = mysql_fetch_assoc($result)) {
-//         	echo $row['xcoor'];
            	echo "new google.maps.Marker({position: new google.maps.LatLng(".strval($row['xcoor']).",".$row['ycoor']."),map: map,title: '".$row['buildingName']."'});\n";
         }
         	    
