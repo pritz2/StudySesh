@@ -2,21 +2,24 @@
 session_start();
 $message="";
 if(count($_POST)>0) {
-$conn = mysql_connect("localhost:8889","root","root");
-mysql_select_db("studyses_db",$conn);
-$result = mysql_query("SELECT * FROM Student WHERE studentID='" . $_POST["studentID"] . "' and password = '". $_POST["password"]."'");
-$row  = mysql_fetch_array($result);
-if(is_array($row)) {
-$_SESSION["id"] = $row[studentID];
-$_SESSION["name"] = $row[name];
-$_SESSION["major"] = $row[major];
-$_SESSION["year"] = $row[year];
-} else {
-$message = "Invalid Username or Password!";
-}
+	
+	include './include/database_info.php';
+	$conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
+	$db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
+	
+	$result = mysql_query("SELECT * FROM Student WHERE studentID='" . $_POST["studentID"] . "' and password = '". $_POST["password"]."'");
+	$row  = mysql_fetch_array($result);
+	if(is_array($row)) {
+		$_SESSION["id"] = $row[studentID];
+		$_SESSION["name"] = $row[name];
+		$_SESSION["major"] = $row[major];
+		$_SESSION["year"] = $row[year];
+	} else {
+		$message = "Invalid Username or Password!";
+	}
 }
 if(isset($_SESSION["id"])) {
-header("Location:dashboard.php");
+	header("Location:dashboard.php");
 }
 ?>
 <html>

@@ -2,13 +2,13 @@
 session_start();
 $message="";
 if(count($_POST)>0) {
-$conn = mysql_connect("localhost:8889","root","root");
+	include './include/database_info.php';
+	$conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
+	$db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
 
 	$sql = 'INSERT INTO Student '.
 			'(studentID,password, name, major, year) '.
 			"VALUES ( '".$_POST["studentID"]."', '".$_POST["password"]."', '".$_POST["name"]."', '".$_POST["major"]."', '".$_POST["year"]."');";
-
-	mysql_select_db("studyses_db",$conn);
 
 	mysql_query( $sql, $conn );
 

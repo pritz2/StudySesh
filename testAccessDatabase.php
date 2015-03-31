@@ -1,13 +1,8 @@
 <?php
 
-	$user = 'root';
-	$password = 'root';
-	$host = 'localhost';
-	$port = '8889';
-	$db = 'studyses_db';
-
-	$link = mysql_connect("$host:$port",$user,$password) or die("Connection error");
-	$db_selected = mysql_select_db($db,$link) or die(mysql_error($db));
+	include './include/database_info.php';
+	$conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
+	$db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
 
 	$result = mysql_query("SELECT buildingName,xcoor,ycoor FROM  Location");
 
