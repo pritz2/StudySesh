@@ -41,18 +41,18 @@ header("Location:index.php");
   </div>
   <div class="row">
     <div class="col-sm-4">
-      <h3>Find Locations</h3>
-      <p>Find locations near you known the be common study or work areas!</p>
-      <a href='viewLocations.php'>View locations here!</a>
-    </div>
-    <div class="col-sm-4">
-      <h3>Find Classmates</h3>
-      <p>Look at who's at a location you want to study at so you can work together!</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Check In</h3>        
+      <h3><a href='checkIn.php'>Check In</a></h3>        
       <p>When you start working, mark your location so others can find you!</p>
     </div>
+    <div class="col-sm-4">
+      <h3><a href='viewLocations.php'>View Locations</a></h3>
+      <p>Find locations near you known the be common study or work areas!</p>
+    </div>
+    <div class="col-sm-4">
+      <h3><a href='recommend.php'>Recommend for me</a></h3>
+      <p>Recommends the best locations for you!</p>
+    </div>
+    
   </div>
 </div>
 
