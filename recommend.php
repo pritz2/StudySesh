@@ -28,9 +28,11 @@ if(!isset($_SESSION["id"])) {
                 <a class="navbar-brand" href="">StudySesh</a> </div><div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
 
-                    <li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <li><a href="profile.php">Profile</a></li>
                     <?php if(isset($_SESSION["locationID"])) echo "<li><a href='at_location.php'>My Location</a></li>";?>
+                    <li><a href="viewLocations.php">All Locations</a></li>
+                    <li class="active"><a href="recommend.php">Recommend</a></li>
                     <li><a href="include/logout.php">Logout</a></li>
 
                 </ul>

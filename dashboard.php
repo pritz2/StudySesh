@@ -31,6 +31,8 @@ header("Location:index.php");
             <li class="active"><a href="index.php">Home</a></li>
             <li><a href="profile.php">Profile</a></li>
             <?php if(isset($_SESSION["locationID"])) echo "<li><a href='at_location.php'>My Location</a></li>";?>
+            <li><a href="viewLocations.php">All Locations</a></li>
+            <li><a href="recommend.php">Recommend</a></li>
             <li><a href="include/logout.php">Logout</a></li>
           
           </ul>

@@ -27,8 +27,8 @@ if(isset($_SESSION["id"])) {
           <a class="navbar-brand" href="">StudySesh</a> </div><div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
 
-            <li class="active"><a href="index.php">Home</a></li>
-            <li><a href="sign_up.php">Sign Up</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li class="active"><a href="sign_up.php">Sign Up</a></li>
           
           </ul>
         </div> </div> </div>
