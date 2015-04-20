@@ -13,6 +13,7 @@ if(count($_POST)>0) {
 	mysql_query( $sql, $conn );
 
 	$_SESSION["locationID"] = $_POST["locationID"];
+    $_SESSION["classID"] = $_POST["classID"];
 
 	header("Location:at_location.php");
 }
