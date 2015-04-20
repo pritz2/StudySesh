@@ -45,10 +45,10 @@ if(!isset($_SESSION["id"])) {
   </div>
   <div class="row">
   	<h3>Your info:</h3>
-  	<p>Name: <?php echo $_SESSION["name"];?></p>
-  	<p>Student ID: <?php echo $_SESSION["id"];?></p>
-  	<p>Major: <?php echo $_SESSION["major"];?></p>
-  	<p>Year: <?php echo $_SESSION["year"];?></p>
+  	<p class="profile-line">Name: <?php echo $_SESSION["name"];?></p>
+  	<p class="profile-line">Student ID: <?php echo $_SESSION["id"];?></p>
+  	<p class="profile-line">Major: <?php echo $_SESSION["major"];?></p>
+  	<p class="profile-line">Year: <?php echo $_SESSION["year"];?></p>
     <?php 
     	include_once './include/db_connect.php';
     	
@@ -59,10 +59,9 @@ if(!isset($_SESSION["id"])) {
     		echo "You're not taking any classes!";
     	}
     	else{
-    		echo "<p>Your classes:</p>";
+    		echo "<p class='profile-line'>Your classes:</p>";
     		while ($row = mysql_fetch_assoc($result)) {
-    			echo "<p>".$row['classID'].": ".$row['className']." (".$row['teacher'].")</p>";
-    			echo "";
+    			echo "<p class='profile-line'>".$row['classID'].": ".$row['className']." (".$row['teacher'].")</p>";
     		}
     	}
     ?>

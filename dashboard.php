@@ -48,6 +48,7 @@ header("Location:index.php");
     <div class="col-md-6">
       <h3 style="text-align: center">Check In</h3>        
       <p style="text-align: center">When you start working, mark your location so others can find you!</p>
+      <?php if(!isset($_SESSION['locationID'])): ?>
       <form action=./include/checkIn.php method="post" class="form-btn" role="form">
       	<select name="classID" class="form-control">
       	<?php 
@@ -73,6 +74,10 @@ header("Location:index.php");
 		</select>
     	<button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Check In!</button>
   	  </form>
+  	  <?php else: ?>
+  	  <h4 style="text-align: center">You're currently checked into <?php echo $_SESSION['locationID']; ?>!</p>
+  	  <h4 style="text-align: center"><a href="./include/leave_location.php">I'm done with this location.</a></h3>
+  	  <?php endif ?>
     </div>
     <div class="col-md-6">
       <div class="row">
