@@ -76,6 +76,10 @@ header("Location:index.php");
     </div>
     <div class="col-md-6">
       <div class="row">
+      	<h3 style="text-align: center"><a href='profile.php'>Profile</a></h3>
+        <p style="text-align: center">Personalize your profile with your current classes!</p>
+      </div>
+      <div class="row">
       	<h3 style="text-align: center"><a href='viewLocations.php'>View Locations</a></h3>
         <p style="text-align: center">Find locations near you known the be common study or work areas!</p>
       </div>
