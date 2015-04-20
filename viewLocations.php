@@ -8,7 +8,7 @@ header("Location:index.php");
 <html>
   <head>
  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Gamma Location Map</title>
+	<title>StudySesh</title>
 	<!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     

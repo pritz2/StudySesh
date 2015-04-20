@@ -49,8 +49,28 @@ header("Location:index.php");
       <h3 style="text-align: center">Check In</h3>        
       <p style="text-align: center">When you start working, mark your location so others can find you!</p>
       <form action=./include/checkIn.php method="post" class="form-btn" role="form">
-    	<input name="classID" type="text" class="form-control" placeholder="Class ID" required>
-    	<input name="locationID" type="text" class="form-control" placeholder="Location" required>
+      	<select name="classID" class="form-control">
+      	<?php 
+      		include_once 'include/db_connect.php';
+      		$sql = "SELECT * FROM Taking WHERE studentID = '".$_SESSION["id"]."';";
+      		$result = mysql_query($sql);
+      		
+      		while ($row = mysql_fetch_assoc($result)) {
+      			echo "<option value='".$row['classID']."'>".$row['classID']."</option>";
+      		}
+      	?>
+		</select>
+		<select name="locationID" class="form-control">
+  		<?php 
+      		include_once 'include/db_connect.php';
+      		$sql = "SELECT * FROM Location;";
+      		$result = mysql_query($sql);
+      		
+      		while ($row = mysql_fetch_assoc($result)) {
+      			echo "<option value='".$row['locationID']."'>".$row['buildingName']." room ".$row['roomNumber']."</option>";
+      		}
+      	?>
+		</select>
     	<button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Check In!</button>
   	  </form>
     </div>
