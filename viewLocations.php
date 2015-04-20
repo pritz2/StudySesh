@@ -32,10 +32,13 @@ header("Location:index.php");
         <?php 
         include_once 'include/db_connect.php';
 
-        $result = mysql_query("SELECT buildingName,xcoor,ycoor FROM  Location");
+        $result = mysql_query("SELECT locationID,buildingName,xcoor,ycoor FROM  Location");
         		
         while ($row = mysql_fetch_assoc($result)) {
-           	echo "new google.maps.Marker({position: new google.maps.LatLng(".strval($row['xcoor']).",".$row['ycoor']."),map: map,title: '".$row['buildingName']."'});\n";
+        	$subrow = mysql_fetch_assoc(mysql_query("SELECT COUNT(studentID) AS cnt FROM CheckIn WHERE locationID = '".$row['locationID']."';"));
+        	echo "var infowindow".$row['locationID']." = new google.maps.InfoWindow({content: '<p>".$row['locationID']."</p><p>".$subrow['cnt']." students studying here now.</p><a href=dashboard.php>Check in here!</a>'});\n";
+           	echo "var marker".$row['locationID']." = new google.maps.Marker({position: new google.maps.LatLng(".strval($row['xcoor']).",".$row['ycoor']."),map: map,title: '".$row['locationID']."'});\n";
+           	echo "google.maps.event.addListener(marker".$row['locationID'].", 'click', function() {infowindow".$row['locationID'].".open(map,marker".$row['locationID'].");});\n";
         }
         	    
         ?>
