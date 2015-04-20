@@ -9,6 +9,6 @@ $sql = "DELETE FROM Taking WHERE studentID = '".$_SESSION["id"]."' AND classID =
 
 mysql_query( $sql, $conn );
 
-header("Location:../dashboard.php");
+header("Location:../profile.php");
 
 ?>

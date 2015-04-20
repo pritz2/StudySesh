@@ -62,15 +62,17 @@ if(!isset($_SESSION["id"])) {
     		echo "<p>Your classes:</p>";
     		while ($row = mysql_fetch_assoc($result)) {
     			echo "<p>".$row['classID'].": ".$row['className']." (".$row['teacher'].")</p>";
+    			echo "";
     		}
     	}
     ?>
   </div>
   <div class="row">
-  	<h3 style="text-align:center">Add a class!</h3>
-  	<form action="./include/add_class.php" method="post" class="form-btn" role="form">
-		<select name="classID" class="form-control">
-    	<?php 
+  	<div class="col-md-6">
+  	  <h3 style="text-align:center">Add a class!</h3>
+  	  <form action="./include/add_class.php" method="post" class="form-btn" role="form">
+		  <select name="classID" class="form-control">
+    	  <?php 
     		include_once 'include/db_connect.php';
     		$sql = "SELECT * FROM Class;";
     		$result = mysql_query($sql);
@@ -78,10 +80,28 @@ if(!isset($_SESSION["id"])) {
     		while ($row = mysql_fetch_assoc($result)) {
     			echo "<option value='".$row['classID']."'>".$row['classID'].": ".$row['className']." (".$row['teacher'].")</option>";
     		}
-    	?>
-    	</select>
-    	<button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
-  	</form>
+    	  ?>
+    	  </select>
+    	  <button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
+  	  </form>
+  	</div>
+  	<div class="col-md-6">
+  	  <h3 style="text-align:center">Drop a class!</h3>
+  	  <form action="./include/drop_class.php" method="post" class="form-btn" role="form">
+		  <select name="classID" class="form-control">
+    	  <?php 
+    		include_once 'include/db_connect.php';
+    		$sql = "SELECT * FROM Taking WHERE studentID = '".$_SESSION['id']."';";
+    		$result = mysql_query($sql);
+    		
+    		while ($row = mysql_fetch_assoc($result)) {
+    			echo "<option value='".$row['classID']."'>".$row['classID']."</option>";
+    		}
+    	  ?>
+    	  </select>
+    	  <button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
+  	  </form>
+  	</div>
   </div>
 </div>
 
