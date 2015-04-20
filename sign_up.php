@@ -40,7 +40,7 @@ if(isset($_SESSION["id"])) {
     <p>The hippest work collaboration tool around</p> 
   </div>
       
-  <form action="register.php" method="post" class="form-btn" role="form">
+  <form action="include/register.php" method="post" class="form-btn" role="form">
     <input name="studentID" type="text" class="form-control" placeholder="Student ID" required autofocus>
     <input name="password" type="password" class="form-control" placeholder="Password" required>
     <input name="name" type="text" class="form-control" placeholder="Name" required>

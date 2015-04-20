@@ -2,9 +2,8 @@
 session_start();
 $message="";
 if(count($_POST)>0) {
-	include './include/database_info.php';
-	$conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
-	$db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
+	
+	include_once 'db_connect.php';
 
 	$sql = 'INSERT INTO CheckIn '.
 			'(studentID,locationID,classID) '.
@@ -15,6 +14,6 @@ if(count($_POST)>0) {
 	$_SESSION["locationID"] = $_POST["locationID"];
     $_SESSION["classID"] = $_POST["classID"];
 
-	header("Location:at_location.php");
+	header("Location:../at_location.php");
 }
 ?>

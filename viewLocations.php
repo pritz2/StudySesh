@@ -17,9 +17,7 @@
         var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
         <?php 
-        include './include/database_info.php';
-		$conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
-		$db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
+        include_once 'include/db_connect.php';
 
         $result = mysql_query("SELECT buildingName,xcoor,ycoor FROM  Location");
         		

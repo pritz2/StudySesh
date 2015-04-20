@@ -31,7 +31,7 @@ if(!isset($_SESSION["id"])) {
             <li class="active"><a href="index.php">Home</a></li>
             <li><a href="profile.php">Profile</a></li>
             <?php if(isset($_SESSION["locationID"])) echo "<li><a href='at_location.php'>My Location</a></li>";?>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="include/logout.php">Logout</a></li>
           
           </ul>
         </div> </div> </div>
@@ -48,9 +48,8 @@ if(!isset($_SESSION["id"])) {
   	<p>Major: <?php echo $_SESSION["major"];?></p>
   	<p>Year: <?php echo $_SESSION["year"];?></p>
     <?php 
-    	include './include/database_info.php';
-    	$conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
-    	$db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
+    	include_once './include/db_connect.php';
+    	
     	$sql = "SELECT Class.classID, Class.className, Class.teacher FROM Taking INNER JOIN Class ON Taking.classID = Class.classID WHERE Taking.studentID = '".$_SESSION["id"]."';";
     	$result = mysql_query($sql);
     	
@@ -67,7 +66,7 @@ if(!isset($_SESSION["id"])) {
   </div>
   <div class="row">
   	<h3 style="text-align:center">Add a class!</h3>
-  	<form action="add_class.php" method="post" class="form-btn" role="form">
+  	<form action="./include/add_class.php" method="post" class="form-btn" role="form">
     	<input name="classID" type="text" class="form-control" placeholder="Class ID" required>
     	<button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
   	</form>

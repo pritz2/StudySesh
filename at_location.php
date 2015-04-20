@@ -31,7 +31,7 @@ header("Location:index.php");
             <li class="active"><a href="index.php">Home</a></li>
             <li><a href="profile.php">Profile</a></li>
             <?php if(isset($_SESSION["locationID"])) echo "<li><a href='at_location.php'>My Location</a></li>";?>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="include/logout.php">Logout</a></li>
           
           </ul>
         </div> </div> </div>
@@ -46,7 +46,7 @@ header("Location:index.php");
     <h3>Welcome to <?php echo $_SESSION['locationID'];?>!</h3>
   </div>
   <div class="row">
-    <h3><a href="leave_location.php">I'm done with this location.</a></h3>
+    <h3><a href="./include/leave_location.php">I'm done with this location.</a></h3>
   </div>
 </div>
 

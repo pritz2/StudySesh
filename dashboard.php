@@ -31,7 +31,7 @@ header("Location:index.php");
             <li class="active"><a href="index.php">Home</a></li>
             <li><a href="profile.php">Profile</a></li>
             <?php if(isset($_SESSION["locationID"])) echo "<li><a href='at_location.php'>My Location</a></li>";?>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="include/logout.php">Logout</a></li>
           
           </ul>
         </div> </div> </div>
@@ -46,7 +46,7 @@ header("Location:index.php");
     <div class="col-md-6">
       <h3 style="text-align: center">Check In</h3>        
       <p style="text-align: center">When you start working, mark your location so others can find you!</p>
-      <form action=checkIn.php method="post" class="form-btn" role="form">
+      <form action=./include/checkIn.php method="post" class="form-btn" role="form">
     	<input name="classID" type="text" class="form-control" placeholder="Class ID" required>
     	<input name="locationID" type="text" class="form-control" placeholder="Location" required>
     	<button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Check In!</button>

@@ -31,7 +31,7 @@ if(!isset($_SESSION["id"])) {
                     <li class="active"><a href="index.php">Home</a></li>
                     <li><a href="profile.php">Profile</a></li>
                     <?php if(isset($_SESSION["locationID"])) echo "<li><a href='at_location.php'>My Location</a></li>";?>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="include/logout.php">Logout</a></li>
 
                 </ul>
     </div> </div> </div>
@@ -44,9 +44,7 @@ if(!isset($_SESSION["id"])) {
         <div class="row">
             <h3>Currently checked in :</h3>
             <?php
-            include './include/database_info.php';
-            $conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
-            $db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
+            include_once './include/db_connect.php';
             $sql = "SELECT locationID, classID FROM CheckIn WHERE studentID = '".$_SESSION["id"]."';";
             $result = mysql_query($sql);
 
@@ -63,9 +61,7 @@ if(!isset($_SESSION["id"])) {
         <div class="row">
             <h3>Recommended location :</h3>
             <?php
-            include './include/database_info.php';
-            $conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
-            $db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
+            include_once './include/db_connect.php';
             $sql = "CALL recommended_classes('".$_SESSION["classID"]."')";
             $result = mysql_query($sql);
             if(mysql_num_rows($result)==0){
