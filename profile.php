@@ -69,7 +69,17 @@ if(!isset($_SESSION["id"])) {
   <div class="row">
   	<h3 style="text-align:center">Add a class!</h3>
   	<form action="./include/add_class.php" method="post" class="form-btn" role="form">
-    	<input name="classID" type="text" class="form-control" placeholder="Class ID" required>
+		<select name="classID" class="form-control">
+    	<?php 
+    		include_once 'include/db_connect.php';
+    		$sql = "SELECT * FROM Class;";
+    		$result = mysql_query($sql);
+    		
+    		while ($row = mysql_fetch_assoc($result)) {
+    			echo "<option value='".$row['classID']."'>".$row['classID'].": ".$row['className']." (".$row['teacher'].")</option>";
+    		}
+    	?>
+    	</select>
     	<button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
   	</form>
   </div>
