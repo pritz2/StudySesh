@@ -3,6 +3,7 @@ session_start();
 if(isset($_SESSION["id"])) {
 	header("Location:dashboard.php");
 }
+$error = filter_input(INPUT_GET, 'err', $filter = FILTER_SANITIZE_STRING);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -54,6 +55,8 @@ if(isset($_SESSION["id"])) {
 	</select>
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Register!</button>
   </form>
+  
+  <h3 class="error"><?php echo $error;?></h3>
 
 </div>
 
