@@ -44,11 +44,28 @@ header("Location:index.php");
     <h1>StudySesh</h1>
     <p>The hippest work collaboration tool around</p> 
   </div>
-  <div class="row">
-    <h3>Welcome to <?php echo $_SESSION['locationID'];?>!</h3>
+  <div class="col-md-6">
+    <div class="row">
+      <h3>Welcome to <?php echo $_SESSION['locationID'];?>!</h3>
+    </div>
+    <div class="row">
+      <h3><a href="./include/leave_location.php">I'm done with this location.</a></h3>
+    </div>
   </div>
-  <div class="row">
-    <h3><a href="./include/leave_location.php">I'm done with this location.</a></h3>
+  <div class="col-md-6">
+  	<h3>Other users here now:</h3>
+  	<?php 
+  	  include_once 'include/db_connect.php';
+  	  $sql = "SELECT * FROM Student S INNER JOIN CheckIn C ON S.studentID = C.studentID WHERE C.locationID = '".$_SESSION["locationID"]."';";
+  	  $result = mysql_query($sql);
+  	
+  	  if(mysql_num_rows($result)==0)
+  	  	echo "<h3>No other users are checked in here!</h3>";
+  	  else {
+  	  	while ($row = mysql_fetch_assoc($result))
+  	  		echo "<p>".$row['name']." is here studying ".$row['classID']."</p>";
+  	  }
+  	?>
   </div>
 </div>
 
