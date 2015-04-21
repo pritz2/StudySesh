@@ -3,6 +3,7 @@ session_start();
 if(isset($_SESSION["id"])) {
 	header("Location:dashboard.php");
 }
+$error = filter_input(INPUT_GET, 'err', $filter = FILTER_SANITIZE_STRING);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -45,6 +46,7 @@ if(isset($_SESSION["id"])) {
     <input name="password" type="password" class="form-control" placeholder="Password" required>
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="loginsubmit">Login</button>
   </form>
+  <h3 class="error"><?php echo $error;?></h3>
 
   <form action="sign_up.php" method="post" class="form-btn" role="form">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
