@@ -28,10 +28,12 @@ if(!isset($_SESSION["id"])) {
           <a class="navbar-brand" href="">StudySesh</a> </div><div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
 
-            <li class="active"><a href="index.php">Home</a></li>
-            <li><a href="profile.php">Profile</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li class="active"><a href="profile.php">Profile</a></li>
             <?php if(isset($_SESSION["locationID"])) echo "<li><a href='at_location.php'>My Location</a></li>";?>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="viewLocations.php">All Locations</a></li>
+            <li><a href="recommend.php">Recommend</a></li>
+            <li><a href="include/logout.php">Logout</a></li>
           
           </ul>
         </div> </div> </div>
@@ -43,14 +45,13 @@ if(!isset($_SESSION["id"])) {
   </div>
   <div class="row">
   	<h3>Your info:</h3>
-  	<p>Name: <?php echo $_SESSION["name"];?></p>
-  	<p>Student ID: <?php echo $_SESSION["id"];?></p>
-  	<p>Major: <?php echo $_SESSION["major"];?></p>
-  	<p>Year: <?php echo $_SESSION["year"];?></p>
+  	<p class="profile-line">Name: <?php echo $_SESSION["name"];?></p>
+  	<p class="profile-line">Student ID: <?php echo $_SESSION["id"];?></p>
+  	<p class="profile-line">Major: <?php echo $_SESSION["major"];?></p>
+  	<p class="profile-line">Year: <?php echo $_SESSION["year"];?></p>
     <?php 
-    	include './include/database_info.php';
-    	$conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
-    	$db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
+    	include_once './include/db_connect.php';
+    	
     	$sql = "SELECT Class.classID, Class.className, Class.teacher FROM Taking INNER JOIN Class ON Taking.classID = Class.classID WHERE Taking.studentID = '".$_SESSION["id"]."';";
     	$result = mysql_query($sql);
     	
@@ -58,19 +59,48 @@ if(!isset($_SESSION["id"])) {
     		echo "You're not taking any classes!";
     	}
     	else{
-    		echo "<p>Your classes:</p>";
+    		echo "<p class='profile-line'>Your classes:</p>";
     		while ($row = mysql_fetch_assoc($result)) {
-    			echo "<p>".$row['classID'].": ".$row['className']." (".$row['teacher'].")</p>";
+    			echo "<p class='profile-line'>".$row['classID'].": ".$row['className']." (".$row['teacher'].")</p>";
     		}
     	}
     ?>
   </div>
   <div class="row">
-  	<h3 style="text-align:center">Add a class!</h3>
-  	<form action="add_class.php" method="post" class="form-btn" role="form">
-    	<input name="classID" type="text" class="form-control" placeholder="Class ID" required>
-    	<button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
-  	</form>
+  	<div class="col-md-6">
+  	  <h3 style="text-align:center">Add a class!</h3>
+  	  <form action="./include/add_class.php" method="post" class="form-btn" role="form">
+		  <select name="classID" class="form-control">
+    	  <?php 
+    		include_once 'include/db_connect.php';
+    		$sql = "SELECT * FROM Class;";
+    		$result = mysql_query($sql);
+    		
+    		while ($row = mysql_fetch_assoc($result)) {
+    			echo "<option value='".$row['classID']."'>".$row['classID'].": ".$row['className']." (".$row['teacher'].")</option>";
+    		}
+    	  ?>
+    	  </select>
+    	  <button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
+  	  </form>
+  	</div>
+  	<div class="col-md-6">
+  	  <h3 style="text-align:center">Drop a class!</h3>
+  	  <form action="./include/drop_class.php" method="post" class="form-btn" role="form">
+		  <select name="classID" class="form-control">
+    	  <?php 
+    		include_once 'include/db_connect.php';
+    		$sql = "SELECT * FROM Taking WHERE studentID = '".$_SESSION['id']."';";
+    		$result = mysql_query($sql);
+    		
+    		while ($row = mysql_fetch_assoc($result)) {
+    			echo "<option value='".$row['classID']."'>".$row['classID']."</option>";
+    		}
+    	  ?>
+    	  </select>
+    	  <button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
+  	  </form>
+  	</div>
   </div>
 </div>
 
@@ -80,5 +110,3 @@ if(!isset($_SESSION["id"])) {
 
 </body>
 </html>
-
-?>

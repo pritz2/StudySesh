@@ -1,9 +1,0 @@
-<?php
-session_start();
-unset($_SESSION["id"]);
-unset($_SESSION["name"]);
-unset($_SESSION["major"]);
-unset($_SESSION["year"]);
-unset($_SESSION["locationID"]);
-header("Location:index.php");
-?>

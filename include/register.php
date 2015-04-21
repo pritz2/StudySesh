@@ -2,9 +2,8 @@
 session_start();
 $message="";
 if(count($_POST)>0) {
-	include './include/database_info.php';
-	$conn = mysql_connect("$host:$port",$user,$password) or die("Connection error");
-	$db_selected = mysql_select_db($db,$conn) or die(mysql_error($db));
+	
+	include_once 'db_connect.php';
 
 	$sql = 'INSERT INTO Student '.
 			'(studentID,password, name, major, year) '.
@@ -17,6 +16,6 @@ if(count($_POST)>0) {
 	$_SESSION["major"] = $_POST["major"];
 	$_SESSION["year"] = $_POST["year"];
 
-	header("Location:dashboard.php");
+	header("Location:../dashboard.php");
 }
 ?>
