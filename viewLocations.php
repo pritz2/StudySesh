@@ -35,9 +35,19 @@ header("Location:index.php");
         $result = mysql_query("SELECT locationID,buildingName,xcoor,ycoor FROM  Location");
         		
         while ($row = mysql_fetch_assoc($result)) {
-        	$subrow = mysql_fetch_assoc(mysql_query("SELECT COUNT(studentID) AS cnt FROM CheckIn WHERE locationID = '".$row['locationID']."';"));
-        	echo "var infowindow".$row['locationID']." = new google.maps.InfoWindow({content: '<p>".$row['locationID']."</p><p>".$subrow['cnt']." students studying here now.</p><a href=dashboard.php>Check in here!</a>'});\n";
-           	echo "var marker".$row['locationID']." = new google.maps.Marker({position: new google.maps.LatLng(".strval($row['xcoor']).",".$row['ycoor']."),map: map,title: '".$row['locationID']."'});\n";
+        	$count = mysql_fetch_assoc(mysql_query("SELECT COUNT(studentID) AS cnt FROM CheckIn WHERE locationID = '".$row['locationID']."';"))['cnt'];
+        	$subresult = mysql_query("SELECT * FROM Student S INNER JOIN CheckIn C ON S.studentID = C.studentID WHERE C.locationID = '".$row["locationID"]."';");
+        	$studentsHere = "";
+        	if(mysql_num_rows($subresult)!=0){
+        		while ($subrow = mysql_fetch_assoc($subresult))
+        			$studentsHere .= "<p>".$subrow["name"]." is here studying ".$subrow["classID"]."</p>";
+        	}
+        	$content = "<h3>".$row['locationID']."</h3>";
+        	$content .= "<p>".$count." students studying here now.</p>";
+        	$content .= $studentsHere;
+        	$content .= "<p><a href=dashboard.php>Check in here!</a></p>";
+        	echo "var infowindow".$row['locationID']." = new google.maps.InfoWindow({content: '".$content."'});\n";
+           	echo "var marker".$row['locationID']." = new google.maps.Marker({position: new google.maps.LatLng(".$row['xcoor'].",".$row['ycoor']."),map: map,title: '".$row['locationID']."'});\n";
            	echo "google.maps.event.addListener(marker".$row['locationID'].", 'click', function() {infowindow".$row['locationID'].".open(map,marker".$row['locationID'].");});\n";
         }
         	    
