@@ -61,17 +61,18 @@ if(!isset($_SESSION["id"])) {
             ?>
         </div>
         <div class="row">
-            <h3>Recommended location :</h3>
+            <h3>Recommended locations for classes you're taking :</h3>
             <?php
             include_once './include/db_connect.php';
-            $sql = "CALL recommended_classes('".$_SESSION["classID"]."')";
+            $sql = "CALL recommend_for_student('".$_SESSION["id"]."')";
             $result = mysql_query($sql);
             if(mysql_num_rows($result)==0){
-                echo "You're not checked in!";
+                echo "You're not enrolled in classes!";
             }
             else{
+                echo "<p>Class | Most Frequently Visited | Number of Visits | Longest Visited Building | Time at Building</p>";
                 while ($row = mysql_fetch_assoc($result)) {
-                    echo "<p>".$row['Location']."</p>";
+                    echo "<p>".$row['Class']." ".$row['mostVisitedBuilding']." ".$row['visitsAtBuilding']." ".$row['mostTimeBuilding']." ".$row['timeAtBuilding']."</p>";
                 }
             }
             ?>
