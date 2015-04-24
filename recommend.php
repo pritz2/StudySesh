@@ -90,7 +90,7 @@ if(!isset($_SESSION["id"])) {
             }
             else{
                 echo "<h4>These are the recommended locations based on their past usage (number of visits/total time):</h4>";
-                echo "<p>Class | Most Frequently Visited | Number of Visits | Longest Visited Building | Time at Building</p>";
+                echo "<p>Class | Most Frequently Visited | Number of Visits | Longest Visited Building | Time at Building(minutes)</p>";
                 while ($row = mysql_fetch_assoc($result3)) {
                     echo "<p>".$row['Class']." ".$row['mostVisitedBuilding']." ".$row['visitsAtBuilding']." ".$row['mostTimeBuilding']." ".$row['timeAtBuilding']."</p>";
                 }
