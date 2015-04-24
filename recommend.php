@@ -44,34 +44,54 @@ if(!isset($_SESSION["id"])) {
             <h1>Recommended Location</h1>
         </div>
         <div class="row">
-            <h3>Currently checked in :</h3>
+            <h3>Where you're checked in :</h3>
             <?php
-            include_once './include/db_connect.php';
-            $sql = "SELECT locationID, classID FROM CheckIn WHERE studentID = '".$_SESSION["id"]."';";
-            $result = mysql_query($sql);
+            include_once '/include/db_connect.php';
 
-            if(mysql_num_rows($result)==0){
+            $sql1 = "SELECT locationID, classID FROM CheckIn WHERE studentID = '".$_SESSION["id"]."';";
+            $result1 = mysql_query($sql1);
+
+            if(mysql_num_rows($result1)==0){
                 echo "You're not checked in!";
             }
             else{
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysql_fetch_assoc($result1)) {
                     echo "<p>".$row['locationID']." ".$row['classID']."</p>";
                 }
             }
             ?>
-        </div>
-        <div class="row">
-            <h3>Recommended locations for classes you're taking :</h3>
+
+            <h3>Buildings with most checked in right now:</h3>
             <?php
-            include_once './include/db_connect.php';
-            $sql = "CALL recommend_for_student('".$_SESSION["id"]."')";
-            $result = mysql_query($sql);
-            if(mysql_num_rows($result)==0){
-                echo "You're not enrolled in classes!";
+            include_once '/include/db_connect.php';
+
+            $sql2 = "SELECT classID, Location, MAX(numStudents) AS numStudents FROM NumberAtBuildingForTaking
+                    WHERE studentID = '".$_SESSION["id"]."' GROUP BY classID;";
+            $result2 = mysql_query($sql2);
+
+            if(mysql_num_rows($result2)==0){
+                echo "You haven't added any classes!";
             }
             else{
+                echo "<p>Class | Building | Number Checked In</p>";
+                while ($row = mysql_fetch_assoc($result2)) {
+                    echo "<p>".$row['classID']." ".$row['Location']." ".$row['numStudents']."</p>";
+                }
+            }
+            ?>
+
+            <h3>Recommended locations for classes you're taking :</h3>
+            <?php
+            include_once '/include/db_connect.php';
+            $sql3 = "CALL recommend_for_student('".$_SESSION["id"]."');";
+            $result3 = mysql_query($sql3);
+            if(mysql_num_rows($result3)==0){
+                echo "You haven't added any classes!";
+            }
+            else{
+                echo "<h4>These are the recommended locations based on their past usage (number of visits/total time):</h4>";
                 echo "<p>Class | Most Frequently Visited | Number of Visits | Longest Visited Building | Time at Building</p>";
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysql_fetch_assoc($result3)) {
                     echo "<p>".$row['Class']." ".$row['mostVisitedBuilding']." ".$row['visitsAtBuilding']." ".$row['mostTimeBuilding']." ".$row['timeAtBuilding']."</p>";
                 }
             }
