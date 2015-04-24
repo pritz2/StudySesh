@@ -98,7 +98,7 @@ if(!isset($_SESSION["id"])) {
     		}
     	  ?>
     	  </select>
-    	  <button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Add Class!</button>
+    	  <button class="btn btn-lg btn-primary btn-block" type="submit" name="registersubmit">Drop Class!</button>
   	  </form>
   	</div>
   </div>
